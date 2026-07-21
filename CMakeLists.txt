@@ -58,3 +58,5 @@ endif()
 if( EVE_BUILD_BENCHMARKS )
   add_subdirectory("${PROJECT_SOURCE_DIR}/benchmarks/")
 endif()
+
+include(config/eve-package)

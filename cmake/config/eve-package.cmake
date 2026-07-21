@@ -1,0 +1,21 @@
+cmake_host_system_information(RESULT os_name QUERY OS_NAME)
+
+set(CPACK_COMPONENTS_ALL EVEpkg)
+# set(CPACK_MONOLITHIC_INSTALL ON)
+
+if (EXISTS "/Library/Apple/System/Library/CoreServices")
+  set(CPACK_GENERATOR "productbuild")
+  if (EXISTS "/opt/local")
+    set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/local")
+  else()
+    set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
+  endif()
+elseif (EXISTS "/etc/debian_version")
+  set(CPACK_GENERATOR "DEB")
+  set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
+elseif ("${os_name}" STREQUAL "FreeBSD")
+  set(CPACK_GENERATOR "FREEBSD")
+  set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
+endif()
+
+include(CPack)

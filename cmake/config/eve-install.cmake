@@ -31,10 +31,12 @@ write_basic_package_version_file( "${CMAKE_CURRENT_BINARY_DIR}/eve-config-versio
 ## =================================================================================================
 ## Install target with versioned folder
 ## =================================================================================================
-install(TARGETS   eve_lib EXPORT eve-targets                            DESTINATION "${MAIN_DEST}"    )
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/eve                     DESTINATION "${INSTALL_DEST}" )
-install(FILES     ${PROJECT_SOURCE_DIR}/cmake/eve-config.cmake          DESTINATION "${MAIN_DEST}"    )
-install(FILES     ${CMAKE_CURRENT_BINARY_DIR}/eve-config-version.cmake  DESTINATION "${MAIN_DEST}"    )
-install(FILES     ${PROJECT_SOURCE_DIR}/cmake/eve-multiarch.cmake       DESTINATION "${MAIN_DEST}"    )
-install(FILES     ${PROJECT_SOURCE_DIR}/LICENSE.md                      DESTINATION "${DOC_DEST}"     )
-install(EXPORT    eve-targets NAMESPACE "eve::"                         DESTINATION "${MAIN_DEST}"    )
+set(CONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/eve")
+
+install(TARGETS   eve_lib EXPORT eve-targets                            DESTINATION "${CONFIG_INSTALL_DIR}" COMPONENT EVEpkg   )
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/eve                     DESTINATION "${INSTALL_DEST}" COMPONENT EVEpkg )
+install(FILES     ${PROJECT_SOURCE_DIR}/cmake/eve-config.cmake          DESTINATION "${CONFIG_INSTALL_DIR}" COMPONENT EVEpkg   )
+install(FILES     ${CMAKE_CURRENT_BINARY_DIR}/eve-config-version.cmake  DESTINATION "${CONFIG_INSTALL_DIR}" COMPONENT EVEpkg   )
+install(FILES     ${PROJECT_SOURCE_DIR}/cmake/eve-multiarch.cmake       DESTINATION "${CONFIG_INSTALL_DIR}" COMPONENT EVEpkg   )
+install(FILES     ${PROJECT_SOURCE_DIR}/LICENSE.md                      DESTINATION "${DOC_DEST}" COMPONENT EVEpkg    )
+install(EXPORT    eve-targets NAMESPACE "eve::"                         DESTINATION "${CONFIG_INSTALL_DIR}" COMPONENT EVEpkg   )
