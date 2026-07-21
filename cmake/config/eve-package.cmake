@@ -15,6 +15,8 @@ elseif (EXISTS "/etc/debian_version")
   set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
 elseif ("${os_name}" STREQUAL "FreeBSD")
   set(CPACK_GENERATOR "FREEBSD")
+  set(CPACK_FREEBSD_PACKAGE_LICENSE "BSL")
+  set(CPACK_FREEBSD_PACKAGE_MAINTAINER "dwmcrobb@me.com")
   set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
 endif()
 
