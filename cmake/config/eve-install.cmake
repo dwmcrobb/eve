@@ -32,7 +32,14 @@ write_basic_package_version_file( "${CMAKE_CURRENT_BINARY_DIR}/eve-config-versio
 ## Install target with versioned folder
 ## =================================================================================================
 set(CONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/eve")
-
+if (EXISTS "/usr/lib/x86_64-linux-gnu/cmake")
+  set(CONFIG_INSTALL_DIR "/usr/lib/x86_64-linux-gnu/cmake/eve")
+elseif (EXISTS "/usr/lib/aarch64-linux-gnu/cmake")
+  set(CONFIG_INSTALL_DIR "/usr/lib/aarch64-linux-gnu/cmake/eve")
+elseif (EXISTS "/opt/local/lib/cmake")
+  set(CONFIG_INSTALL_DIR "/opt/local/lib/cmake/eve")
+endif()
+      
 install(TARGETS   eve_lib EXPORT eve-targets                            DESTINATION "${CONFIG_INSTALL_DIR}" COMPONENT EVEpkg   )
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/eve                     DESTINATION "${INSTALL_DEST}" COMPONENT EVEpkg )
 install(FILES     ${PROJECT_SOURCE_DIR}/cmake/eve-config.cmake          DESTINATION "${CONFIG_INSTALL_DIR}" COMPONENT EVEpkg   )

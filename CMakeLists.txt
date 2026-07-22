@@ -59,4 +59,7 @@ if( EVE_BUILD_BENCHMARKS )
   add_subdirectory("${PROJECT_SOURCE_DIR}/benchmarks/")
 endif()
 
+## ============================================================================
+## Native packaging uding cpack
+## ============================================================================
 include(config/eve-package)

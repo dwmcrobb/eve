@@ -1,5 +1,8 @@
 cmake_host_system_information(RESULT os_name QUERY OS_NAME)
 
+set(CPACK_PACKAGE_VERSION "1.0.0")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "C++20 type-based wrappers around SIMD extensions")
+
 set(CPACK_COMPONENTS_ALL EVEpkg)
 # set(CPACK_MONOLITHIC_INSTALL ON)
 
@@ -13,6 +16,7 @@ if (EXISTS "/Library/Apple/System/Library/CoreServices")
 elseif (EXISTS "/etc/debian_version")
   set(CPACK_GENERATOR "DEB")
   set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
+  set(CPACK_PACKAGE_CONTACT "dwmcrobb@me.com")
 elseif ("${os_name}" STREQUAL "FreeBSD")
   set(CPACK_GENERATOR "FREEBSD")
   set(CPACK_FREEBSD_PACKAGE_LICENSE "BSL")
