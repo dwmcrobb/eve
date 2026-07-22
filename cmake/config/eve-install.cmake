@@ -8,7 +8,10 @@ if ("${os_name}" STREQUAL "Darwin")
   if (EXISTS "/opt/local/bin/cmake")
     set(CMAKE_INSTALL_PREFIX "/opt/local")
   endif()
+elseif (EXISTS "/etc/debian_version")
+  set(CMAKE_INSTALL_PREFIX "/usr")
 endif()
+
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -17,10 +20,12 @@ set(MAIN_DEST     "${CMAKE_INSTALL_LIBDIR}/eve")
 set(INSTALL_DEST  "${CMAKE_INSTALL_INCLUDEDIR}")
 set(DOC_DEST      "${CMAKE_INSTALL_DOCDIR}")
 set(CMAKE_DEST    "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
-    
+
+message(CMAKE_INSTALL_LIBDIR="${CMAKE_INSTALL_LIBDIR}")
 message(CMAKE_INSTALL_PREFIX="${CMAKE_INSTALL_PREFIX}")
 message(CMAKE_MODULE_PATH="${CMAKE_MODULE_PATH}")
-    
+message(CMAKE_DEST="${CMAKE_DEST}")
+
 ## =================================================================================================
 ## Exporting target for external use
 ## =================================================================================================
