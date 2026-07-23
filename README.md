@@ -1,3 +1,11 @@
+# Credits
+This is not my code; it's just a fork to add native package building
+for macOS, FreeBSD and Debian-based Linux distributions.  I've made NO
+code changes, only cmake and cpack stuff.
+
+See the [jfalcou/eve repository](https:/github.com/jfalcou/eve)] for the
+original code.
+
 <img src="https://github.com/jfalcou/eve/raw/main/doc/logo.png" alt="" data-canonical-src="https://github.com/jfalcou/eve/raw/main/doc/logo.png" align="left"  width="15%" height="15%" />
 
 # EVE - the Expressive Vector Engine
