@@ -1,6 +1,7 @@
 cmake_host_system_information(RESULT os_name QUERY OS_NAME)
 
 set(CPACK_PACKAGE_VERSION "1.0.0")
+set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION}-${os_name}-${CMAKE_HOST_SYSTEM_PROCESSOR}")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "C++20 type-based wrappers around SIMD extensions")
 
 set(CPACK_COMPONENTS_ALL EVEpkg)
@@ -22,6 +23,10 @@ elseif ("${os_name}" STREQUAL "FreeBSD")
   set(CPACK_FREEBSD_PACKAGE_LICENSE "BSL")
   set(CPACK_FREEBSD_PACKAGE_MAINTAINER "dwmcrobb@me.com")
   set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
+  set(CPACK_FREEBSD_PACKAGE_ORIGIN "devel/eve")
+  set(CPACK_FREEBSD_PACKAGE_COMMENT "${CPACK_PACKAGE_DESCRIPTION_SUMMARY}")
+  set(CPACK_FREEBSD_PACKAGE_DESCRIPTION "${CPACK_PACKAGE_DESCRIPTION_SUMMARY}.\nThis is a fork of https://github.com/jfalcou/eve just to add native packaging\non macOS, FreeBSD and Debian-based Linux distributions.")
+  set(CPACK_FREEBSD_PACKAGE_WWW "https://github.com/dwmcrobb/eve")
 endif()
 
 include(CPack)
