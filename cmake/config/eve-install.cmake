@@ -47,13 +47,29 @@ write_basic_package_version_file( "${CMAKE_CURRENT_BINARY_DIR}/eve-config-versio
                                   ARCH_INDEPENDENT
                                 )
 
-## =================================================================================================
-## Install target with versioned folder
-## =================================================================================================
-
+## ============================================================================
+## Create eve.pc for pkg-config.
+## ============================================================================
 configure_file("${PROJECT_SOURCE_DIR}/cmake/eve.pc.in" "${PROJECT_SOURCE_DIR}/cmake/eve.pc" @ONLY)
 
-install(FILES ${PROJECT_SOURCE_DIR}/cmake/eve.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig COMPONENT EVEpkg)
+## ============================================================================
+## Figure out where we should install eve.pc for pkg-config.
+## ============================================================================
+execute_process(COMMAND pkg-config --variable=pc_path pkg-config OUTPUT_VARIABLE pc_path)
+string(REGEX MATCHALL "[^:]+" pc_path_list "${pc_path}")
+list(LENGTH pc_path_list pc_path_list_len)
+
+if (${pc_path_list_len} GREATER 0)
+  list(GET pc_path_list 0 PKGCONFIG_PC_DIR)
+  file(RELATIVE_PATH PKGCONFIG_PC_DIR "${CMAKE_INSTALL_PREFIX}" "${PKGCONFIG_PC_DIR}")
+else()
+  set(PKGCONFIG_PC_DIR "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
+endif()
+
+## =================================================================================================
+## Install target
+## =================================================================================================
+install(FILES ${PROJECT_SOURCE_DIR}/cmake/eve.pc DESTINATION ${PKGCONFIG_PC_DIR} COMPONENT EVEpkg)
 install(TARGETS   eve_lib EXPORT eve-targets                            DESTINATION "${CONFIG_INSTALL_DIR}" COMPONENT EVEpkg   )
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/eve                     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}" COMPONENT EVEpkg )
 install(FILES     ${PROJECT_SOURCE_DIR}/cmake/eve-config.cmake          DESTINATION "${CMAKE_DEST}" COMPONENT EVEpkg   )
