@@ -55,12 +55,11 @@ configure_file("${PROJECT_SOURCE_DIR}/cmake/eve.pc.in" "${PROJECT_SOURCE_DIR}/cm
 ## ============================================================================
 ## Figure out where we should install eve.pc for pkg-config.
 ## ============================================================================
-execute_process(COMMAND pkg-config --variable=pc_path pkg-config OUTPUT_VARIABLE pc_path)
+execute_process(COMMAND pkg-config --variable=pc_path pkg-config OUTPUT_VARIABLE pc_path OUTPUT_STRIP_TRAILING_WHITESPACE)
 string(REGEX MATCHALL "[^:]+" pc_path_list "${pc_path}")
 list(LENGTH pc_path_list pc_path_list_len)
-
 if (${pc_path_list_len} GREATER 0)
-  list(GET pc_path_list 0 PKGCONFIG_PC_DIR)
+  list(GET pc_path_list -1 PKGCONFIG_PC_DIR)
   file(RELATIVE_PATH PKGCONFIG_PC_DIR "${CMAKE_INSTALL_PREFIX}" "${PKGCONFIG_PC_DIR}")
 else()
   set(PKGCONFIG_PC_DIR "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
